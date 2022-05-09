@@ -1,0 +1,8 @@
+<h1>Voici la page du potin n°<%= params[:id]%></h1>
+<p>
+ <h2>Titre : <%= @gossip.title %></h2>
+  Auteur : <%= @gossip.user.first_name %> <%= @gossip.user.last_name %><br/>
+  Le gossip : <%= @gossip.content %>
+  <br>
+  <br>
+  <%= link_to 'Voir l auteur', user_path(@gossip.user) %></p>

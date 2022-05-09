@@ -1,0 +1,16 @@
+<h1 class="text-center text-info">Les Gossips</h1>
+<br>
+<div class="container marketing">
+  <div class="row">
+    <% @gossips.each do |gossip| %>
+      <div class="col-lg-4">
+        <img src="https://source.unsplash.com/200x200/?portrait?sig=<%=rand(1..100)%>" 
+                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+        
+        <h2><%= gossip.user.first_name %></h2>
+        <p><%= gossip.title %></p>
+        <p class="text-decoration-none"><%= link_to 'Voir le gossip', gossip_path(gossip), class: "btn btn-info" %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

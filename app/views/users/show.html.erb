@@ -1,0 +1,10 @@
+<h1 class="text-center text-info">La page de l'auteur </h1>
+<img src="https://source.unsplash.com/200x200/?portrait?sig=<%=rand(1..50)%>" 
+                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+<p>
+  <h3> Utilisateur : </h3>
+  <%= @user.first_name %> <%= @user.last_name %><br/>
+  Age : <%= @user.age %><br/>
+  Description : <%= @user.description %><br/>
+  <span class="fas fa-envelope-open"></span><%= @user.email %><br/>
+</p>
