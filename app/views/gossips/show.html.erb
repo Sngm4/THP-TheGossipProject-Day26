@@ -5,4 +5,4 @@
   Le gossip : <%= @gossip.content %>
   <br>
   <br>
-  <%= link_to 'Voir l auteur', user_path(@gossip.user) %></p>
+<p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>

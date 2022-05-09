@@ -7,9 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'faker'
 
+Gossip.destroy_all
 User.destroy_all
 City.destroy_all
-Gossip.destroy_all
 Tag.destroy_all
 
 20.times do
@@ -18,11 +18,11 @@ end
 
 10.times do
   city = City.all.sample
-  user = User.create(first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, description: Faker::Lorem.sentence(word_count: 10), email: Faker::Internet.safe_email, age: Faker::Number.between(from: 18, to: 40), city: city)
+  user = User.create(first_name: Faker::Movies::HarryPotter.character, last_name: Faker::Movies::HarryPotter.house, description: Faker::Movies::HarryPotter.quote, email: Faker::Internet.safe_email, age: Faker::Number.between(from: 18, to: 40), city: city)
 end
 
 20.times do
-  gossip = Gossip.create(title: Faker::Lorem.sentence(word_count: 3), content: Faker::Lorem.sentence(word_count: 15), user: User.all.sample)
+  gossip = Gossip.create(title: Faker::Movies::HarryPotter.spell, content: Faker::TvShows::MichaelScott.quote, user: User.all.sample)
 end
 
 10.times do
