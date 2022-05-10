@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
   # gossips
   root to: 'gossips#index'
-  get '/gossips/:id', to: 'gossips#show', as: 'gossip'
+  # get '/gossips/:id', to: 'gossips#show', as: 'gossip' =>> fonctionne sans
+
+  #resources
+  resources :gossips
 
   # pages
   get '/team', to: 'pages#team'
