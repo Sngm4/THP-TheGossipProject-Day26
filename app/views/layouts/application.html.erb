@@ -40,22 +40,21 @@
         </div>
       </nav>
     </header>
-
     <div class="container-fluid p-10">
-
-     <% flash.each do |type, msg| %>
-      <% case msg %>
-      <% when "Yes congrats"%>
-      <div class="alert alert-info">
-        <%= msg %>
-      </div>
-      <% when "Try again" %>
-      <div class="alert alert-danger">
-        <%= msg %>
-      </div>
+      <% flash.each do |type, msg| %>
+        <% case msg %>
+        <% when "Yes congrats"%>
+        <div class="alert alert-info">
+          <%= msg %>
+        </div>
       <% else %>
+        <% msg.each do |bla| %>
+         <div class="alert alert-danger">
+          <%= bla %></br>
+          </div>
       <% end %>
     <% end %>
-      <%= yield %>
-    </body>
-  </html>
+  <% end %>
+  <%= yield %>
+</body>
+</html>

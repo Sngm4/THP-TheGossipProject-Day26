@@ -19,7 +19,7 @@ class GossipsController < ApplicationController
     if @gossip.save
       redirect_to gossips_path
     else 
-      flash.now[:alert] = "Try again"
+      flash.now[:alert] = @gossip.errors.full_messages
       render 'new'
     end
   end
