@@ -7,3 +7,5 @@
   <br>
   <br>
 <p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
+<p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
+<%= link_to 'Supprimer le potin', @gossip.destroy, class: "btn btn-danger"%>

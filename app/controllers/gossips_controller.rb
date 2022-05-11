@@ -30,16 +30,20 @@ class GossipsController < ApplicationController
 
   def update
     @gossip = Gossip.find(params[:id])
-    new_gossip1 = params.require(:gossip).permit(:content, :title)
-    if @gossip.update(new_gossip1)
-      redirect_to gossips_path
+    if @gossip.update(params_gossip)
+      redirect_to gossip_path(params[:id])
     else
+      flash.now[:alert] = @gossip.errors.full_messages
       render :edit
     end
   end
 
+  def destroy
+    
+  end
+
   private 
-  def new_gossip
+  def params_gossip
     params.require(:gossip).permit(:content, :title)
   end
 end
