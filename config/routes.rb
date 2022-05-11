@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   #resources
   resources :gossips
   resources :users
-  resources :cities, only:[:show] 
+  resources :cities, only:[:show]
+  resources :gossips do 
+    resources :comments
+  end
 
   # pages
   get '/team', to: 'pages#team'
