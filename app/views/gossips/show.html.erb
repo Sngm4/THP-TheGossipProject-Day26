@@ -1,11 +1,19 @@
 <h1>Voici la page du potin n°<%= params[:id]%></h1>
 <p>
- <h2>Titre : <%= @gossip.title %></h2>
+  <h2>Titre : <%= @gossip.title %></h2>
   Auteur : <%= @gossip.user.first_name %> <%= @gossip.user.last_name %><br/>
   Le gossip : <%= @gossip.content %><br/>
   Ville de l'auteur : <%= @gossip.user.city.name %>
   <br>
   <br>
-<p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
-<p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
-<%= link_to 'Supprimer le potin', @gossip.destroy, class: "btn btn-danger"%>
+  <p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
+  <p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
+  <%= link_to 'Supprimer le potin', @gossip.destroy, class: "btn btn-danger"%>
+  <p>Commentaire :</p>
+  <% @comments.each do |comment| %>
+    <% if comment.gossip_id == @gossip.id %>
+      <div class="col-lg-4">
+        <h2><%= comment.content %></h2>
+</div>
+<% end %>
+<% end %>

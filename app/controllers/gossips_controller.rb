@@ -6,8 +6,9 @@ class GossipsController < ApplicationController
 
   def show
     @gossip = Gossip.find(params[:id])
+    @comments = Comment.all
   end
-
+  
   def new
     @gossip = Gossip.create()
   end
