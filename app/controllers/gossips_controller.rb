@@ -8,13 +8,13 @@ class GossipsController < ApplicationController
     @gossip = Gossip.find(params[:id])
     @comments = Comment.all
   end
-  
+
   def new
     @gossip = Gossip.create()
   end
   
   def create
-   @gossip = Gossip.new('user' => User.find(61),
+   @gossip = Gossip.new('user' => User.find(72),
       'title' => params[:gossip_title],
       'content' => params[:gossip_content])
     if @gossip.save
@@ -40,7 +40,9 @@ class GossipsController < ApplicationController
   end
 
   def destroy
-    
+    @gossip = Gossip.find(params[:id])
+    @gossip.destroy
+    redirect_to gossips_path
   end
 
   private 
