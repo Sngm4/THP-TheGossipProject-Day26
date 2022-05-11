@@ -6,5 +6,8 @@
   <%= @user.first_name %> <%= @user.last_name %><br/>
   Age : <%= @user.age %><br/>
   Description : <%= @user.description %><br/>
+  Ville : <%= @user.city.name %><br/>
   <span class="fas fa-envelope-open"></span><%= @user.email %><br/>
+<p class="text-decoration-none"><%= link_to 'Voir la ville', city_path(@user.city), class: "btn btn-info" %></p>
+
 </p>

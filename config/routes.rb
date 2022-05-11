@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'cities/show'
   get 'users/index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -8,6 +9,8 @@ Rails.application.routes.draw do
 
   #resources
   resources :gossips
+  resources :users
+  resources :cities, only:[:show] 
 
   # pages
   get '/team', to: 'pages#team'
@@ -15,5 +18,5 @@ Rails.application.routes.draw do
   get '/welcome/:name', to: 'pages#welcome'
 
   # users
-  get '/users/:id', to: 'users#show', as: 'user'
+  #get '/users/:id', to: 'users#show', as: 'user'
 end

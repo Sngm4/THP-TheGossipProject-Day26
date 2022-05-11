@@ -1,0 +1,19 @@
+<h1 class="text-center text-info">La page de la ville </h1>
+
+<p>
+  <h3> Ville : </h3>
+  <%= @city.name %>
+
+<div class="container marketing">
+  <div class="row">
+    <% @city.gossips.each do |gossip| %>
+      <div class="col-lg-4">
+        <h2><%= gossip.user.first_name %></h2>
+        <p><%= gossip.title %></p>
+        <p class="text-decoration-none"><%= link_to 'Voir le gossip', gossip_path(gossip), class: "btn btn-info" %></p>
+      </div>
+    <% end %>
+  </div>
+
+
+</p>

@@ -2,7 +2,8 @@
 <p>
  <h2>Titre : <%= @gossip.title %></h2>
   Auteur : <%= @gossip.user.first_name %> <%= @gossip.user.last_name %><br/>
-  Le gossip : <%= @gossip.content %>
+  Le gossip : <%= @gossip.content %><br/>
+  Ville de l'auteur : <%= @gossip.user.city.name %>
   <br>
   <br>
 <p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
