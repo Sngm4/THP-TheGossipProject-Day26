@@ -7,8 +7,12 @@
   <br>
   <br>
   <p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
-  <p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
-  <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, class: "btn btn-danger"%>
+
+  <% if current_user == @gossip.user %>
+    <p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
+    <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, class: "btn btn-danger"%>
+  <% end %>
+
   <p>Commentaire :</p>
   <p class="text-decoration-none"><%= link_to "Créer un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-secondary" %></p>
   <% @comments.each do |comment| %>
@@ -16,7 +20,9 @@
       Auteur : <%= comment.user.first_name %> <%= comment.user.last_name %><br/>
       <div class="col-lg-4">
         <h2><%= comment.content %></h2>
+          <% if current_user == @gossip.user %>
         <p class="text-decoration-none"><%= link_to "Editer le commentaire", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-primary" %></p>
+          <% end %>
       </div>
     <% end %>
   <% end %>
