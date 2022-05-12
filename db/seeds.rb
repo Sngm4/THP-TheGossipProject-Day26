@@ -44,3 +44,10 @@ end
 15.times do
   pm = CreatePrivateMessage.create(content: Faker::Lorem.sentence(word_count: 15), sender: User.all.sample, recipient: User.all.sample)
 end
+
+Gossip.all.each do |gossip|
+  random = rand(0..6)
+  random.times do
+  Comment.create(content: Faker::TvShows::MichaelScott.quote, user: User.all.sample, gossip: gossip)
+  end
+end

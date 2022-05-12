@@ -11,7 +11,9 @@
                 alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
         
         <h2><%= gossip.user.first_name %></h2>
-        <p><%= gossip.title %></p>
+        <p>Titre : <%= gossip.title %></p>
+        <p>Nombre de commentaire(s) : <%= gossip.comments.length %></p>
+
         <p class="text-decoration-none"><%= link_to 'Voir le gossip', gossip_path(gossip), class: "btn btn-info" %></p>
       </div>
     <% end %>

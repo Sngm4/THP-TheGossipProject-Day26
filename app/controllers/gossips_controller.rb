@@ -14,7 +14,7 @@ class GossipsController < ApplicationController
   end
   
   def create
-   @gossip = Gossip.new('user' => User.find(72),
+   @gossip = Gossip.new('user' => User.find(93),
       'title' => params[:gossip_title],
       'content' => params[:gossip_content])
     if @gossip.save
