@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
   end
   
   def create
-   @comment = Comment.new('user' => User.find(93),
+   @comment = Comment.new(user_id: current_user.id,
       content: params[:comment_content], gossip_id: params[:gossip_id])
     if @comment.save
       redirect_to gossip_path(params[:gossip_id])

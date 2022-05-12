@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'sessions/index'
   get 'comment/edit'
   get 'cities/show'
   get 'users/index'
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   resources :gossips do 
     resources :comments
   end
+
+  resources :sessions
 
   # pages
   get '/team', to: 'pages#team'

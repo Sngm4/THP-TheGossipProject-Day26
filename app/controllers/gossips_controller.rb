@@ -1,7 +1,10 @@
 class GossipsController < ApplicationController
+  before_action :authenticate_user, only: [:index, :create, :edit, :update, :destroy]
+  include SessionsHelper
+
   def index
     @gossips = Gossip.all
-    flash.now[:alert] = "Yes congrats"
+    flash.now[:alert] = 'Yes congrats'
   end
 
   def show
@@ -10,16 +13,16 @@ class GossipsController < ApplicationController
   end
 
   def new
-    @gossip = Gossip.create()
+    @gossip = Gossip.create
   end
-  
+
   def create
-   @gossip = Gossip.new('user' => User.find(93),
-      'title' => params[:gossip_title],
-      'content' => params[:gossip_content])
+    @gossip = Gossip.new(user_id: current_user.id,
+                         'title' => params[:gossip_title],
+                         'content' => params[:gossip_content])
     if @gossip.save
       redirect_to gossips_path
-    else 
+    else
       flash.now[:alert] = @gossip.errors.full_messages
       render 'new'
     end
@@ -45,8 +48,16 @@ class GossipsController < ApplicationController
     redirect_to gossips_path
   end
 
-  private 
+  private
+
   def params_gossip
     params.require(:gossip).permit(:content, :title)
+  end
+
+  def authenticate_user
+    unless current_user
+      flash[:danger] = 'Please log in.'
+      redirect_to new_session_path
+    end
   end
 end
