@@ -4,7 +4,6 @@ class GossipsController < ApplicationController
 
   def index
     @gossips = Gossip.all
-    flash.now[:alert] = 'Yes congrats'
   end
 
   def show
@@ -18,10 +17,11 @@ class GossipsController < ApplicationController
 
   def create
     @gossip = Gossip.new(user_id: current_user.id,
-                         'title' => params[:gossip_title],
-                         'content' => params[:gossip_content])
+      'title' => params[:gossip_title],
+      'content' => params[:gossip_content])
     if @gossip.save
       redirect_to gossips_path
+      flash.now[:alert] = 'Yes congrats'
     else
       flash.now[:alert] = @gossip.errors.full_messages
       render 'new'

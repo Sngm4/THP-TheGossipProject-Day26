@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  include SessionsHelper
+
   def edit
     @comment = Comment.find(params[:id])
     @gossip = Gossip.find(params[:gossip_id])

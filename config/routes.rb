@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'likes/index'
   get 'sessions/index'
   get 'comment/edit'
   get 'cities/show'
@@ -14,7 +15,8 @@ Rails.application.routes.draw do
   resources :users
   resources :cities, only:[:show]
   resources :gossips do 
-    resources :comments
+    resources :comments 
+    resources :likes
   end
 
   resources :sessions

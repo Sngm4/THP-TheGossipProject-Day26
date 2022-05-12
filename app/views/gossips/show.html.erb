@@ -7,19 +7,29 @@
   <br>
   <br>
   <p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
+  <p>Like(s) : <%= @gossip.likes.length %></p>
+
+ <% if Like.find_by(gossip_id: @gossip.id, user_id: current_user.id) %>
+          <% like = Like.find_by(gossip_id: @gossip.id, user_id: current_user.id) %>
+          <%= button_to 'Supprimer le like', gossip_like_path(@gossip.id, like.id), method: :delete, class: "btn btn-danger" %>
+        <% else %>
+          <%= form_tag gossip_likes_path(@gossip.id), method: "post" do %>
+            <%= submit_tag "Like" %>
+          <% end %>
+        <% end %>
 
   <% if current_user == @gossip.user %>
     <p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
     <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, class: "btn btn-danger"%>
   <% end %>
-
-  <p>Commentaire :</p>
+<br>
   <p class="text-decoration-none"><%= link_to "Créer un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-secondary" %></p>
+    <h1>Commentaire(s) :</h1>
   <% @comments.each do |comment| %>
     <% if comment.gossip_id == @gossip.id %>
-      Auteur : <%= comment.user.first_name %> <%= comment.user.last_name %><br/>
+      <h3>Auteur : <%= comment.user.first_name %> <%= comment.user.last_name %></h3>
       <div class="col-lg-4">
-        <h2><%= comment.content %></h2>
+        <p><%= comment.content %></p>
           <% if current_user == @gossip.user %>
         <p class="text-decoration-none"><%= link_to "Editer le commentaire", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-primary" %></p>
           <% end %>

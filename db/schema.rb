@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_12_083339) do
+ActiveRecord::Schema.define(version: 2022_05_12_163554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 2022_05_12_083339) do
     t.index ["tag_id", "gossip_id"], name: "index_gossips_tags_on_tag_id_and_gossip_id"
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "gossip_id"
+    t.bigint "user_id"
+    t.index ["gossip_id"], name: "index_likes_on_gossip_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
@@ -80,5 +89,7 @@ ActiveRecord::Schema.define(version: 2022_05_12_083339) do
   add_foreign_key "comments", "gossips"
   add_foreign_key "comments", "users"
   add_foreign_key "gossips", "users"
+  add_foreign_key "likes", "gossips"
+  add_foreign_key "likes", "users"
   add_foreign_key "users", "cities"
 end
