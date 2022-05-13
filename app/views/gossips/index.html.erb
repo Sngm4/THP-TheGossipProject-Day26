@@ -1,26 +1,36 @@
-<h1 class="text-center text-info">Les Gossips</h1>
-<br>
-<p class="text-decoration-none"><%= link_to 'Créer un Gossip', new_gossip_path(), class: "btn btn-info" %></p>
 <div class="container marketing">
   <div class="row">
-    <% @gossips.each do |gossip| %>
-      <div class="col-lg-4">
-        <img src="https://source.unsplash.com/200x200/?portrait?sig=<%=rand(1..100)%>" 
-                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-        <h2><%= gossip.user.first_name %></h2>
-        <p>Titre : <%= gossip.title %></p>
-        <p>Nombre de commentaire(s) : <%= gossip.comments.length %></p>
-        <p>Like(s) : <%= gossip.likes.length %></p>
-        <% if Like.find_by(gossip_id: gossip.id, user_id: current_user.id) %>
-          <% like = Like.find_by(gossip_id: gossip.id, user_id: current_user.id) %>
-          <%= button_to 'Supprimer le like', gossip_like_path(gossip.id, like.id), method: :delete, class: "btn btn-danger" %>
-        <% else %>
-          <%= form_tag gossip_likes_path(gossip.id), method: "post" do %>
-            <%= submit_tag "Like" %>
-          <% end %>
-        <% end %>
-        <p class="text-decoration-none"><%= link_to 'Voir le gossip', gossip_path(gossip), class: "btn btn-info" %></p>
+    <div class="col-sm-12">
+      <div class="panel panel-default text-left">
+        <div class="panel-body">
+          <h1 class="text-center text-info">Les Gossips</h1>
+          <p class="text-decoration-none"><%= link_to 'Créer un Gossip', new_gossip_path(), class: "btn btn-info" %></p>
+        </div>
       </div>
-    <% end %>
+    </div>
+    <div class="row ml-5">
+      <% @gossips.each do |gossip| %>
+        <div class="col-lg-3 well m-3">
+          <img src="https://source.unsplash.com/200x200/?portrait?sig=<%=rand(1..100)%>" 
+                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+          <h3><%= gossip.user.first_name %></h2>
+          <h4><%= gossip.title %></h4>
+          <p>Nombre de commentaire(s) : <%= gossip.comments.length %></p>
+          <div class="row ml-3 pt-4">
+            <% if Like.find_by(gossip_id: gossip.id, user_id: current_user.id) %>
+              <% like = Like.find_by(gossip_id: gossip.id, user_id: current_user.id) %>
+              <%= button_to "#{gossip.likes.length } like(s)", gossip_like_path(gossip.id, like.id), method: :delete, class: "btn btn-danger" %>
+            <% else %>
+              <%= form_tag gossip_likes_path(gossip.id), method: "post" do %>
+                <%= submit_tag "#{gossip.likes.length } Like(s)", class:"btn btn-default btn-sm" %>
+              <% end %>
+            <% end %>
+            <div class="col">
+              <p class="text-decoration-none"><%= link_to 'Voir le gossip', gossip_path(gossip), class: "btn btn-info" %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

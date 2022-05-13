@@ -1,38 +1,94 @@
-<h1>Voici la page du potin n°<%= params[:id]%></h1>
-<p>
-  <h2>Titre : <%= @gossip.title %></h2>
-  Auteur : <%= @gossip.user.first_name %> <%= @gossip.user.last_name %><br/>
-  Le gossip : <%= @gossip.content %><br/>
-  Ville de l'auteur : <%= @gossip.user.city.name %>
-  <br>
-  <br>
-  <p class="text-decoration-none"><%= link_to "Voir l'auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
-  <p>Like(s) : <%= @gossip.likes.length %></p>
-
- <% if Like.find_by(gossip_id: @gossip.id, user_id: current_user.id) %>
-          <% like = Like.find_by(gossip_id: @gossip.id, user_id: current_user.id) %>
-          <%= button_to 'Supprimer le like', gossip_like_path(@gossip.id, like.id), method: :delete, class: "btn btn-danger" %>
-        <% else %>
-          <%= form_tag gossip_likes_path(@gossip.id), method: "post" do %>
-            <%= submit_tag "Like" %>
+<%# -------------------------------Content------------------------------- %>
+<div class="container text-center">
+  <!--   <h1>Voici la page du potin n°<%= params[:id]%></h1>-->
+  <div class="row">
+    <div class="col-sm-3 well">
+      <%# -------------------------------Connected user------------------------------- %>
+      <div class="well">
+        <img src="https://source.unsplash.com/200x200/?portrait?sig=<%=rand(1..100)%>" 
+                alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+        <h3><strong><%= @gossip.user.first_name %> <%= @gossip.user.last_name %></strong></h3>
+        <p class="text-decoration-none"><%= link_to "Page Auteur", user_path(@gossip.user), class: "btn btn-info" %></p>
+      </div>
+      <div class="well">
+        <%# -------------------------------Tags------------------------------- %>
+        <%# <p><a href="#">Interests</a></p>
+          <p>
+            <span class="label label-default">News</span>
+            <span class="label label-primary">W3Schools</span>
+            <span class="label label-success">Labels</span>
+            <span class="label label-info">Football</span>
+            <span class="label label-warning">Gaming</span>
+            <span class="label label-danger">Friends</span>
+          </p> %>
+        <%# -------------------------------End Tags------------------------------- %>
+        <h3><strong>Ville : </strong></h3>
+        <h4><%= @gossip.user.city.name %></h4>
+        <p class="text-decoration-none"><%= link_to "Page Ville", city_path(@gossip.user.city), class: "btn btn-info" %></p>
+      </div>
+      <div >
+      </div>
+    </div>
+    <div class="col-sm-7">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="panel panel-default text-left">
+            <div class="panel-body">
+              <h2 class="text-center"><%= @gossip.title %></h2>
+              <p> Le gossip : <%= @gossip.content %></p>
+              <div class="lign"> <hr> </div>
+              <div class="row ">
+                <div class="col-sm">
+                  <p class="text-decoration-none"><%= link_to "Créer un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-secondary" %></p>
+                </div>
+                <div class="col-sm">
+                  <% if Like.find_by(gossip_id: @gossip.id, user_id: current_user.id) %>
+                    <% like = Like.find_by(gossip_id: @gossip.id, user_id: current_user.id) %>
+                    <%= button_to "#{@gossip.likes.length } like(s)", gossip_like_path(@gossip.id, like.id), method: :delete, class: "btn btn-danger" %>
+                  <% else %>
+                    <%= form_tag gossip_likes_path(@gossip.id), method: "post" do %>
+                      <%= submit_tag "#{@gossip.likes.length } Like(s)", class:"btn btn-default btn-sm" %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="lign"> <hr> </div>
+              <div class="row d-flex justify-content-between">
+                <% if current_user == @gossip.user %>
+                  <div class="col-sm ">
+                    <p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
+                  </div>
+                  <div class="col-sm">
+                    <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, class: "btn btn-danger"%>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% @comments.each do |comment| %>
+        <% if comment.gossip_id == @gossip.id %>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="well">
+                <b><%= comment.user.first_name %> <%= comment.user.last_name %></b>
+                <%# <img src="bird.jpg" class="img-circle" height="55" width="55" alt="Avatar"> %>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <div class="well">
+                <p><%= comment.content %>
+                  <%# A tester V-1 %>
+                  <% if current_user == comment.user %>
+                    <p class="text-decoration-none"><%= link_to "Editer le commentaire", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-primary" %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
           <% end %>
         <% end %>
-
-  <% if current_user == @gossip.user %>
-    <p class="text-decoration-none"><%= link_to "Editer le gossip", edit_gossip_path(@gossip), class: "btn btn-primary" %></p>
-    <%= button_to 'Supprimer le potin', gossip_path(@gossip), method: :delete, class: "btn btn-danger"%>
-  <% end %>
-<br>
-  <p class="text-decoration-none"><%= link_to "Créer un commentaire", new_gossip_comment_path(@gossip.id), class: "btn btn-secondary" %></p>
-    <h1>Commentaire(s) :</h1>
-  <% @comments.each do |comment| %>
-    <% if comment.gossip_id == @gossip.id %>
-      <h3>Auteur : <%= comment.user.first_name %> <%= comment.user.last_name %></h3>
-      <div class="col-lg-4">
-        <p><%= comment.content %></p>
-          <% if current_user == @gossip.user %>
-        <p class="text-decoration-none"><%= link_to "Editer le commentaire", edit_gossip_comment_path(@gossip.id, comment.id), class: "btn btn-primary" %></p>
-          <% end %>
       </div>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
+</div>

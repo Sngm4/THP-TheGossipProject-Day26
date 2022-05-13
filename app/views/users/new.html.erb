@@ -1,13 +1,30 @@
-<%= form_tag url_for(action: 'create'), method: "post" do %>
+<div class="container-fluid well">
+<%= form_tag url_for(action: 'create'), method: "post",  class:"mb-3" do %>
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-  <%= label_tag 'User name' %>
-  <%= text_field_tag 'user_name', @user.first_name %>
-  <br />
-  <%= label_tag 'E-mail' %>
-  <%= email_field_tag 'user_email', @user.email %>
-  <br />
-  <%= label_tag 'Password' %>
-  <%= password_field_tag 'user_password', @user.password %>
-  <br />
-  <%= submit_tag "Créer mon compte" %>
+  <div class="mb-3">
+    <%= label_tag 'Prénom' %>
+    <%= text_field_tag 'user_name', @user.first_name, placeholder:"John" %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'Nom' %>
+    <%= text_field_tag 'user_last_name', @user.last_name, placeholder:"Doe" %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'Age' %>
+    <%= text_field_tag 'user_age', @user.age, placeholder:"18" %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'Biographie' %>
+    <%= text_field_tag 'user_description', @user.description, placeholder:"..." %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'E-mail' %>
+    <%= email_field_tag 'user_email', @user.email, placeholder:"email@exemple.com" %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'Mot de passe' %>
+    <%= password_field_tag 'user_password', @user.password, placeholder:"Mot de passe" %>
+  </div>
+  <%= submit_tag "Créer mon compte", class:"btn btn-info mb-5"  %>
 <% end %>
+</div>
